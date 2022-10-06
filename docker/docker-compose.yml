@@ -1,0 +1,20 @@
+version: '3'
+services:
+    a3f_nginx:
+        build:
+            context: './nginx'
+        container_name: a3f_nginx
+        ports:
+            - 80:8080
+        volumes:
+            - ${PHP_WEBROOT}:/var/www/html
+        depends_on:
+            - a3f_php
+    a3f_php:
+        container_name: a3f_php
+        build: ./php
+        ports:
+            - 8081:9000
+        volumes:
+            - ${PHP_WEBROOT}:/var/www/html
+        env_file: ./.env
